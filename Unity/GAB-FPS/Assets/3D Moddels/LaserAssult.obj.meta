@@ -1,32 +1,22 @@
 fileFormatVersion: 2
-guid: ec663ba0d8f8e654da41188b0ef04e0e
-timeCreated: 1481540685
+guid: d283a7b6399626149a3aef8277e141bb
+timeCreated: 1486546010
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Gun
-    100002: Magazine
-    100004: Red Dot Sight
-    100006: Stock
-    100008: //RootNode
-    400000: Gun
-    400002: Magazine
-    400004: Red Dot Sight
-    400006: Stock
-    400008: //RootNode
-    2300000: Gun
-    2300002: Magazine
-    2300004: Red Dot Sight
-    2300006: Stock
-    3300000: Gun
-    3300002: Magazine
-    3300004: Red Dot Sight
-    3300006: Stock
-    4300000: Stock
-    4300002: Magazine
-    4300004: Gun
-    4300006: Red Dot Sight
+    100000: Gun_Cube
+    100002: //RootNode
+    100004: Magazine_Cube.004
+    400000: Gun_Cube
+    400002: //RootNode
+    400004: Magazine_Cube.004
+    2300000: Gun_Cube
+    2300002: Magazine_Cube.004
+    3300000: Gun_Cube
+    3300002: Magazine_Cube.004
+    4300000: Gun_Cube
+    4300002: Magazine_Cube.004
   materials:
     importMaterials: 1
     materialName: 0
