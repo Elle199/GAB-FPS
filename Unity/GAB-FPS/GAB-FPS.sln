@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAB-FPS.Plugins", "GAB-FPS.Plugins.csproj", "{47C8FE7B-0CF1-BF1F-B83F-5EBA5D9F7DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAB-FPS", "GAB-FPS.csproj", "{F1F6D71D-1B28-BC3D-35E5-2BD5A4086ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAB-FPS.Editor.Plugins", "GAB-FPS.Editor.Plugins.csproj", "{58E62F46-D3C7-E5F6-3138-448423CD43B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47C8FE7B-0CF1-BF1F-B83F-5EBA5D9F7DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C8FE7B-0CF1-BF1F-B83F-5EBA5D9F7DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C8FE7B-0CF1-BF1F-B83F-5EBA5D9F7DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C8FE7B-0CF1-BF1F-B83F-5EBA5D9F7DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F6D71D-1B28-BC3D-35E5-2BD5A4086ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F6D71D-1B28-BC3D-35E5-2BD5A4086ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F6D71D-1B28-BC3D-35E5-2BD5A4086ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F6D71D-1B28-BC3D-35E5-2BD5A4086ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E62F46-D3C7-E5F6-3138-448423CD43B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E62F46-D3C7-E5F6-3138-448423CD43B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E62F46-D3C7-E5F6-3138-448423CD43B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E62F46-D3C7-E5F6-3138-448423CD43B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
