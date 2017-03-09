@@ -7,6 +7,7 @@ TagManager:
   - Shootable
   - DeathBarior
   - SpawnPoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

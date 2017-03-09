@@ -11,7 +11,7 @@ public class GunHandler : MonoBehaviour
 
     // Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -22,22 +22,8 @@ public class GunHandler : MonoBehaviour
             bulletCopy = Instantiate(bullet, gunEnd.position, gunEnd.rotation) as Rigidbody;
             bulletCopy.AddForce(gunEnd.forward * thrust);
             rateOfFire = 0.2;
-            //bulletCopy.transform.parent = gameObject.transform;
         }
         if (rateOfFire > 0)
             rateOfFire = rateOfFire - Time.deltaTime;
 	}
-  /*public Rigidbody rocketPrefab;
-    public Transform barrelEnd;
-
-
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Rigidbody rocketInstance;
-            rocketInstance = Instantiate(rocketPrefab, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
-            rocketInstance.AddForce(barrelEnd.forward * 2);
-        }
-    }*/
 }

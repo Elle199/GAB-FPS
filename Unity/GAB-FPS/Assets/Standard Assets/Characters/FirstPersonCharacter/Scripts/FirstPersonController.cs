@@ -60,6 +60,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private Vector3 spawnPoint = new Vector3(0, 1.1f, 0);
 
         // Use this for initialization
         private void Start()
@@ -81,10 +82,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
+            Debug.Log(m_Jump);
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
-                m_Jump = CrossPlatformInputManager.GetButton("Jump");
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -264,6 +266,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            if (hit.gameObject.tag != "Untagged")
+            {
+                Debug.Log("Character hit by: " + hit.gameObject.tag);
+                gameObject.transform.position = spawnPoint;
+            }
             Rigidbody body = hit.collider.attachedRigidbody;
             //dont move the rigidbody if the character is on top of it
             if (m_CollisionFlags == CollisionFlags.Below)
