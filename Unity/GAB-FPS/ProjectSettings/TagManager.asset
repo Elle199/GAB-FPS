@@ -8,6 +8,7 @@ TagManager:
   - DeathBarior
   - SpawnPoint
   - Enemy
+  - HitMarker
   layers:
   - Default
   - TransparentFX

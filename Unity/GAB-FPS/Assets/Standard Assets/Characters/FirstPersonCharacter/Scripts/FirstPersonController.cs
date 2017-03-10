@@ -82,7 +82,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
-            Debug.Log(m_Jump);
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -257,10 +256,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            if (!VRSettings.enabled)
-                m_MouseLook.LookRotation(transform, m_Camera.transform);
-            else
-                transform.rotation = m_Camera.transform.rotation;
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
 
@@ -268,7 +264,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (hit.gameObject.tag != "Untagged")
             {
-                Debug.Log("Character hit by: " + hit.gameObject.tag);
                 gameObject.transform.position = spawnPoint;
             }
             Rigidbody body = hit.collider.attachedRigidbody;
