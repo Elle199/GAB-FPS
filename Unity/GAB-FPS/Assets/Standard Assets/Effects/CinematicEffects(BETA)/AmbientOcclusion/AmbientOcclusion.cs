@@ -20,7 +20,7 @@ namespace UnityStandardAssets.CinematicEffects
         /// Checks if the ambient-only mode is supported under the current settings.
         public bool isAmbientOnlySupported
         {
-            get { return targetCamera.hdr && occlusionSource == OcclusionSource.GBuffer; }
+            get { return targetCamera.allowHDR && occlusionSource == OcclusionSource.GBuffer; }
         }
 
         /// Checks if the G-buffer is available
@@ -57,9 +57,9 @@ namespace UnityStandardAssets.CinematicEffects
                 switch (settings.sampleCount)
                 {
                     case SampleCount.Lowest: return 3;
-                    case SampleCount.Low:    return 6;
+                    case SampleCount.Low: return 6;
                     case SampleCount.Medium: return 12;
-                    case SampleCount.High:   return 20;
+                    case SampleCount.High: return 20;
                 }
                 return Mathf.Clamp(settings.sampleCountValue, 1, 256);
             }

@@ -281,7 +281,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
         void OnCollisionStay(Collision collisionInfo)
         {
-            Debug.Log(collisionInfo);
+
         }
     }
 }

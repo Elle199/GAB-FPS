@@ -163,11 +163,11 @@ namespace UnityStandardAssets.CinematicEffects
         {
             get
             {
-                #if !(UNITY_3 || UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3)
+#if !(UNITY_3 || UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3)
                 return EditorGUIUtility.pixelsPerPoint;
-                #else
+#else
                 return 1f;
-                #endif
+#endif
             }
         }
 
@@ -277,7 +277,7 @@ namespace UnityStandardAssets.CinematicEffects
                                 field.propertyType == SerializedPropertyType.AnimationCurve &&
                                 concreteTarget.tonemapping.tonemapper != TonemappingColorGrading.Tonemapper.Curve)
                                 continue;
-                            
+
                             // Special case for the neutral tonemapper
                             bool neutralParam = field.name.StartsWith("neutral");
 
@@ -348,7 +348,7 @@ namespace UnityStandardAssets.CinematicEffects
             {
                 Camera camera = concreteTarget.GetComponent<Camera>();
 
-                if (camera != null && !camera.hdr)
+                if (camera != null && !camera.allowHDR)
                     EditorGUILayout.HelpBox("The camera is not HDR enabled. This will likely break the tonemapper.", MessageType.Warning);
                 else if (!concreteTarget.validRenderTextureFormat)
                     EditorGUILayout.HelpBox("The input to tonemapper is not in HDR. Make sure that all effects prior to this are executed in HDR.", MessageType.Warning);
