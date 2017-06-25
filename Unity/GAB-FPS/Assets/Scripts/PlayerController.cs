@@ -6,6 +6,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+
+    //Debug or Testing things
+    [SerializeField]
+    private bool activeSlowmo = false;
+
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -40,19 +45,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Slow-mo for testing
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            activeSlowmo = true;
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+            activeSlowmo = false;
+        if (activeSlowmo == true)
+            Time.timeScale = 0.2f;
+        else Time.timeScale = 1.0f;
+
+        //Hides cursor and keep it from clicking outside the game screen
         if (Input.GetKeyDown(KeyCode.Escape))
             Cursor.lockState = CursorLockMode.None;
         if (Input.GetKeyDown(KeyCode.Mouse0))
             Cursor.lockState = CursorLockMode.Locked;
 
-        float movH = Input.GetAxis("Horizontal");
-        float movV = Input.GetAxis("Vertical");
-
-        Vector3 movHorizontal = transform.right * movH;
-        Vector3 movVertical = transform.forward * movV;
+        Vector3 movHorizontal = transform.right * Input.GetAxis("Horizontal");
+        Vector3 movVertical = transform.forward * Input.GetAxis("Vertical");
 
         if (Input.GetButtonDown("Jump"))
             rb.AddForce(-Physics.gravity * jumpPower);
+
         if (Input.GetKey(KeyCode.LeftShift))
             dash = dashSpeed;
         else
@@ -62,12 +75,12 @@ public class PlayerController : MonoBehaviour
 
         if (Cursor.lockState == CursorLockMode.Locked)
         {
-            Move(velocity);
+            RbMove(velocity);
             Turning();
         }
     }
 
-    void Move(Vector3 _Velocity)
+    void RbMove(Vector3 _Velocity)
     {
         velocity = _Velocity;
 
@@ -94,7 +107,7 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
         healthDisplay.GetComponent<Text>().text = currentHealth.ToString();
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = maxHealth;
             Debug.Log("Player Died");

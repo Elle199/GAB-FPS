@@ -7,6 +7,8 @@ public class GunHandler : MonoBehaviour
     [SerializeField]
     private int weaponDamage;
     [SerializeField]
+    private bool infiniteAmmo = false;
+    [SerializeField]
     private GameObject ammoDisplay;
     [SerializeField]
     private Transform gunEnd;
@@ -22,7 +24,7 @@ public class GunHandler : MonoBehaviour
     private float reloadTime = 1.4f;
     private float magSize = 35f;
     private float curretMagCount;
-    private double rateOfFire = 0;
+    private float waitBetweenShot = 0;
     private bool aimState = false;
     private bool isReloading = false;
     private Camera fpsCam;
@@ -47,42 +49,58 @@ public class GunHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && rateOfFire <= 0 && isReloading == false)
+        if (Input.GetButton("Fire1") && waitBetweenShot <= 0 && isReloading == false)
         {
-            rateOfFire = 0.1;
-            Shoot();
+            waitBetweenShot = 0.1f;
+            if (curretMagCount > 0)
+            {
+                Shoot();
+            }
+            else if (curretMagCount <= 0)
+            {
+                StartCoroutine(Reload());
+            }
+
         }
 
-        if (Input.GetButtonUp("Fire1"))
-            shootAnim.SetBool("isFiring", false);
-
-        if (rateOfFire > 0)
-            rateOfFire = rateOfFire - Time.deltaTime;
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-            Aim();
-        }
-        else if (Input.GetButtonUp("Fire2"))
-        {
-            Aim();
-        }
-
+        //Manual reload call
         if (Input.GetKeyDown(KeyCode.R) && isReloading == false)
         {
             StartCoroutine(Reload());
         }
 
+        if (Input.GetButtonUp("Fire1"))
+            shootAnim.SetBool("isFiring", false);
 
+        if (waitBetweenShot > 0)
+            waitBetweenShot = waitBetweenShot - Time.deltaTime;
+        if (waitBetweenShot < 0)
+            waitBetweenShot = 0;
+
+        //Handles aiming
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Aim();
+            //fpsCam.fieldOfView = 40;
+        }
+        else if (Input.GetButtonUp("Fire2"))
+        {
+            Aim();
+            //fpsCam.fieldOfView = 60;
+        }
     }
 
     void Shoot()
     {
+        shootAnim.speed = (1 / waitBetweenShot);
         shootAnim.SetBool("isFiring", true);
         muzzelFlash.Play();
 
-        ammoDisplay.GetComponent<Text>().text = curretMagCount.ToString() + " ";
+        //Removes one bullet from magazine or starts reloading
+        if (curretMagCount > 0 && infiniteAmmo == false)
+            curretMagCount -= 1;
 
+        //Spawns particles on hit and if hit is a enemy make it take damage
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, weaponRange))
         {
@@ -92,14 +110,12 @@ public class GunHandler : MonoBehaviour
                 target.TakeDamage(weaponDamage);
             }
 
-            GameObject impactEffectGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject impactEffectGO = Instantiate(impactEffect, hit.point - (0.1f * -hit.normal), Quaternion.LookRotation(hit.normal));
             Destroy(impactEffectGO, 0.15f);
         }
 
-        if (curretMagCount > 0)
-            curretMagCount -= 1;
-        else if (curretMagCount <= 0)
-            StartCoroutine(Reload());
+        //Updates displayed ammo
+        ammoDisplay.GetComponent<Text>().text = curretMagCount.ToString() + " ";
     }
 
     void Aim()
@@ -111,14 +127,27 @@ public class GunHandler : MonoBehaviour
 
     IEnumerator Reload()
     {
+        //Sets animation states for propper looks
         shootAnim.SetBool("isFiring", false);
-        isReloading = true;
         anim.SetBool("Reloading", true);
-        yield return new WaitForSeconds(reloadTime - 0.25f);
+        if (aimState == true)
+            anim.SetBool("AimIn", false);
+
+        isReloading = true; //Tells that gun is reloading
+
+        yield return new WaitForSeconds(reloadTime - 0.25f); //Workaround for animatino timing
+
         curretMagCount = magSize;
         ammoDisplay.GetComponent<Text>().text = curretMagCount.ToString() + " ";
+
         anim.SetBool("Reloading", false);
-        yield return new WaitForSeconds(0.25f);
-        isReloading = false;
+        if (aimState == true)
+            anim.SetBool("AimIn", true);
+
+        yield return new WaitForSeconds(0.5f);//Workaround for animatino timing
+
+        
+
+        isReloading = false; //Tells that gun is finished reloading
     }
 }
